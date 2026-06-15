@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Mathias</title>
+  <meta name="description" content="Sitio web de perfil profesional que muestra mis servicios, proyectos y habilidades como desarrollador web y diseñador UI/UX.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS v4 -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Tailwind CSS Custom Configuration -->
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: 'Outfit', sans-serif;
+      --color-brand-dark: #090d16;
+      --color-brand-card: #131b2e;
+      --color-brand-primary: #06b6d4; /* Cyan */
+      --color-brand-secondary: #a855f7; /* Purple */
+      --color-brand-accent: #f43f5e; /* Rose */
+      --color-brand-muted: #64748b; /* Slate Muted */
+    }
+    
+    /* Custom utility classes */
+    .glassmorphism {
+      background: rgba(19, 27, 46, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, var(--color-brand-primary) 0%, var(--color-brand-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .bg-gradient-radial {
+      background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.15) 0%, rgba(168, 85, 247, 0.05) 50%, transparent 100%);
+    }
+
+    .glow-effect:hover {
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
+      border-color: rgba(6, 182, 212, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-brand-dark text-slate-100 font-sans antialiased selection:bg-brand-primary selection:text-brand-dark overflow-x-hidden">
+
+  <!-- Background Glow Orbs -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+    <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-primary/10 blur-[120px]"></div>
+    <div class="absolute top-[40%] right-[-10%] w-[60%] h-[60%] rounded-full bg-brand-secondary/8 blur-[150px]"></div>
+    <div class="absolute bottom-[-10%] left-[20%] w-[50%] h-[50%] rounded-full bg-brand-accent/5 blur-[120px]"></div>
+  </div>
+
+  <!-- HEADER / NAVBAR -->
+  <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-5">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="#hero" class="flex items-center space-x-2 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-primary to-brand-secondary flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
+          <span class="text-white font-extrabold text-xl">DP</span>
+        </div>
+        <span class="font-bold text-xl tracking-wide bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent group-hover:text-brand-primary transition-colors duration-300">DevProfile</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-8 glassmorphism px-8 py-3 rounded-full">
+        <a href="#hero" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Inicio</a>
+        <a href="#servicios" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Servicios</a>
+        <a href="#proyectos" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Proyectos</a>
+        <a href="#sobre-mi" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Sobre Mí</a>
+        <a href="#contacto" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Contacto</a>
+      </nav>
+
+      <!-- CTA Button (Desktop) -->
+      <div class="hidden md:block">
+        <a href="#contacto" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium rounded-full group bg-gradient-to-br from-brand-primary to-brand-secondary group-hover:from-brand-primary group-hover:to-brand-secondary text-white focus:ring-4 focus:outline-none focus:ring-brand-primary/30">
+          <span class="relative px-5 py-2 transition-all ease-in duration-75 bg-brand-dark rounded-full group-hover:bg-opacity-0">
+            Contáctame
+          </span>
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2 rounded-lg hover:bg-slate-800/50 transition-colors" aria-label="Abrir menú">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full glassmorphism border-t border-slate-800/80 py-6 px-6 flex flex-col space-y-4 shadow-xl">
+      <a href="#hero" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Inicio</a>
+      <a href="#servicios" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Servicios</a>
+      <a href="#proyectos" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Proyectos</a>
+      <a href="#sobre-mi" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Sobre Mí</a>
+      <a href="#contacto" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Contacto</a>
+      <a href="#contacto" class="mobile-nav-link w-full py-3 text-center bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold rounded-xl shadow-lg transition-transform active:scale-95 duration-200">Hablemos</a>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section id="hero" class="min-h-screen flex items-center pt-24 pb-16 relative">
+    <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <!-- Left Content -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-xs font-semibold uppercase tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse"></span>
+          <span>Disponible para nuevos proyectos</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight leading-none text-white">
+          Hola, soy <span class="text-gradient">Mathias</span> <br>
+          <span class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-300">Desarrolador FullStack</span>
+        </h1>
+        <p class="text-base md:text-lg text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          Me especializo en diseñar y desarrollar aplicaciones web modernas, rápidas y visualmente impactantes. Combino código limpio con diseño interactivo para dar vida a tus ideas.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+          <a href="#proyectos" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-primary/95 hover:to-brand-secondary/95 text-white font-semibold rounded-xl shadow-lg hover:shadow-brand-primary/20 transform hover:-translate-y-0.5 transition-all duration-300 text-center">
+            Ver Proyectos
+          </a>
+          <a href="#contacto" class="w-full sm:w-auto px-8 py-4 bg-brand-card/80 hover:bg-brand-card text-slate-200 font-semibold rounded-xl border border-slate-700/80 hover:border-slate-600 transition-all duration-300 text-center">
+            Contáctame
+          </a>
+        </div>
+      </div>
+      <!-- Right Image / Illustration -->
+      <div class="lg:col-span-5 flex justify-center relative">
+        <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary/20 to-brand-secondary/20 rounded-full blur-[80px] w-72 h-72 mx-auto -z-10"></div>
+        <div class="relative w-full max-w-[420px] aspect-square rounded-3xl overflow-hidden shadow-2xl border border-slate-800">
+          <img src="assets/hero.png" alt="Ilustración Tech" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700">
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/40 to-transparent"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS SECTION -->
+  <section id="servicios" class="py-24 border-t border-slate-900 bg-brand-dark/40 relative">
+    <div class="container mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center mb-16 space-y-3">
+        <h2 class="text-xs font-semibold text-brand-primary uppercase tracking-wider">Lo que ofrezco</h2>
+        <p class="text-3xl md:text-4xl font-bold text-white">Mis Servicios Especializados</p>
+        <div class="w-16 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-9xl mx-auto">
+        <!-- Servicio 1 -->
+        <div class="bg-brand-card/50 border border-slate-800/80 rounded-2xl p-8 hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between">
+          <div class="space-y-6">
+            <div class="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300">
+              <i data-lucide="layout" class="w-7 h-7"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Desarrollo Frontend</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+                Creación de sitios web responsivos usando HTML, CSS, Tailwind y JavaScript. Enfocado en diseño limpio y buena experiencia de usuario.
+            </p>
+          </div>
+          <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center text-brand-primary text-sm font-semibold group-hover:text-white transition-colors">
+            <span>Saber más</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+
+
+        <!-- Servicio 2 -->
+        <div class="bg-brand-card/50 border border-slate-800/80 rounded-2xl p-8 hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between">
+          <div class="space-y-6">
+            <div class="w-14 h-14 rounded-2xl bg-brand-accent/10 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors duration-300">
+              <i data-lucide="zap" class="w-7 h-7"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white"> WordPress & Elementor</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">
+                Personalización de sitios WordPress con Elementor, ajustes de CSS y JavaScript, configuración de plugins y optimización para móvil.
+            </p>
+          </div>
+          <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center text-brand-accent text-sm font-semibold group-hover:text-white transition-colors">
+            <span>Saber más</span>
+            <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS SECTION -->
+  <section id="proyectos" class="py-24 border-t border-slate-900 relative">
+    <div class="container mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center mb-16 space-y-3">
+        <h2 class="text-xs font-semibold text-brand-primary uppercase tracking-wider font-sans">Mi Portafolio</h2>
+        <p class="text-3xl md:text-4xl font-bold text-white">Proyectos Recientes</p>
+        <div class="w-16 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto rounded-full"></div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        
+        <!-- Proyecto 1 -->
+        <div class="group bg-brand-card/40 border border-slate-800/60 rounded-2xl overflow-hidden hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <!-- Project Image styled placeholder -->
+              <div class="w-full bg-gradient-to-br from-indigo-950 to-purple-900 flex flex-col items-center justify-center relative overflow-hidden">
+                <img src="/assets/SneakerShop.jpg" alt="SneakerShop">                
+              </div>
+              
+              <!-- Project Content -->
+              <div class="p-6 space-y-4">
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-2.5 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-medium">Laravel</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">Blade</span>
+                  <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">MySQL</span>
+                </div>
+                <h3 class="text-xl font-bold text-white group-hover:text-brand-primary transition-colors">SneakerShop</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                  Tienda de zapatillas desarrollada con Laravel. Incluye catálogo de productos, navegación por categorías y diseño responsivo.
+                </p>
+              </div>
+            </div>
+            
+            <div class="p-6 pt-0 flex justify-between items-center">
+              <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Ver Repositorio">
+                <i data-lucide="github" class="w-5 h-5"></i>
+              </a>
+              <a href="https://github.com/mhtma22/SneakerShop" class="flex items-center text-brand-primary text-sm font-semibold hover:underline" aria-label="Ver Demo">
+                <span>Demo en Vivo</span>
+                <i data-lucide="external-link" class="w-4 h-4 ml-1"></i>
+              </a>
+            </div>
+          </div>
+
+
+        <!-- Proyecto 2 -->
+        <div class="group bg-brand-card/40 border border-slate-800/60 rounded-2xl overflow-hidden hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between">
+          <div>
+            <!-- Project Image styled placeholder -->
+            <div class="w-full bg-gradient-to-br from-slate-1000 to-cyan-900 flex flex-col items-center justify-center relative overflow-hidden">
+                <img src="/assets/BellaCosta.jpg" class="w-full h-full object-cover" alt="bellacosta">
+            </div>
+            
+            <!-- Project Content -->
+            <div class="p-6 space-y-4">
+              <div class="flex flex-wrap gap-2">
+                <span class="px-2.5 py-0.5 rounded-full bg-brand-secondary/10 text-brand-secondary text-xs font-medium">WordPress</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">Elementor</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">Houzez</span>
+              </div>
+              <h3 class="text-xl font-bold text-white group-hover:text-brand-secondary transition-colors">BellaCosta</h3>
+              <p class="text-slate-400 text-sm leading-relaxed">
+                Personalización de sitio inmobiliario en WordPress. Ajustes de CSS, JavaScript, SEO y optimización móvil..
+              </p>
+            </div>
+          </div>
+          
+          <div class="p-6 pt-0 flex justify-between items-center">
+            <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Ver Repositorio">
+              <i data-lucide="github" class="w-5 h-5"></i>
+            </a>
+            <a href="https://bellacosta.es" class="flex items-center text-brand-secondary text-sm font-semibold hover:underline" aria-label="Ver Demo">
+              <span>Demo en Vivo</span>
+              <i data-lucide="external-link" class="w-4 h-4 ml-1"></i>
+            </a>
+          </div>
+        </div>
+           
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ SECTION -->
+  <section id="sobre-mi" class="py-24 border-t border-slate-900 bg-brand-dark/40 relative">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+        <!-- Left Column: Avatar Image -->
+        <div class="lg:col-span-5 flex justify-center relative order-last lg:order-first">
+          <div class="absolute inset-0 bg-gradient-to-tr from-brand-secondary/20 to-brand-accent/20 rounded-full blur-[80px] w-72 h-72 mx-auto -z-10"></div>
+          <!-- Ring style border around avatar -->
+          <div class="relative p-2 rounded-full bg-gradient-to-br from-brand-primary via-slate-800 to-brand-secondary shadow-2xl">
+            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden bg-brand-dark">
+              <img src="assets/Yo.jpg" alt="Avatar Profesional" class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Text & Skills -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="space-y-3">
+            <h2 class="text-xs font-semibold text-brand-primary uppercase tracking-wider">Quién soy</h2>
+            <p class="text-3xl md:text-4xl font-bold text-white">Un Poco Sobre Mí</p>
+            <div class="w-16 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full"></div>
+          </div>
+
+          <div class="space-y-4 text-slate-400 text-sm md:text-base leading-relaxed">
+            <p>
+                Soy estudiante de Sistemas de Información con experiencia práctica en desarrollo web. He trabajado en proyectos reales con WordPress, Elementor y Laravel, enfocándome en soluciones funcionales y bien presentadas.
+            </p>
+            <p>
+                Me gusta entender lo que el cliente necesita y traducirlo en algo que funcione bien y se vea bien. Trabajo de forma independiente y aprendo rápido.
+            </p>
+          </div>
+
+          <!-- Skills Grid -->
+          <div class="space-y-4 pt-4">
+            <h4 class="text-white font-bold text-lg">Habilidades & Tecnologías</h4>
+            <div class="flex flex-wrap gap-3">
+              <!-- Skill Badge -->
+              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-primary hover:text-white transition-all duration-300">
+                <span class="w-2 h-2 rounded-full bg-brand-primary mr-2"></span>HTML5 / CSS3
+              </span>
+              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-primary hover:text-white transition-all duration-300">
+                <span class="w-2 h-2 rounded-full bg-brand-primary mr-2"></span>Tailwind CSS
+              </span>
+              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-primary hover:text-white transition-all duration-300">
+                <span class="w-2 h-2 rounded-full bg-brand-primary mr-2"></span>JavaScript
+              </span>
+
+              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-secondary hover:text-white transition-all duration-300">
+                <span class="w-2 h-2 rounded-full bg-brand-secondary mr-2"></span>Wordpress
+              </span>
+              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-accent hover:text-white transition-all duration-300">
+                <span class="w-2 h-2 rounded-full bg-brand-accent mr-2"></span>Git & GitHub
+              </span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO SECTION -->
+  <section id="contacto" class="py-24 border-t border-slate-900 relative">
+    <div class="container mx-auto px-6">
+      <div class="max-w-2xl mx-auto text-center mb-16 space-y-3">
+        <h2 class="text-xs font-semibold text-brand-primary uppercase tracking-wider">Contacto</h2>
+        <p class="text-3xl md:text-4xl font-bold text-white">Pongámonos en Contacto</p>
+        <p class="text-slate-400 text-sm max-w-md mx-auto">¿Tienes una idea en mente o un proyecto por realizar? Escríbeme y hablemos sobre cómo puedo ayudarte.</p>
+        <div class="w-16 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto rounded-full"></div>
+      </div>
+
+      <!--  Contacto Info (Left) -->
+      <div class="md:col-span-3 flex flex-col sm:flex-row flex-wrap gap-6 justify-center items-center">
+        <div class="md:col-span-2 flex flex-col items-center justify-center">
+            <div class="md:row-span-1 border border-slate-700/80 p-4 rounded-full">
+                <h3 class="text-white font-bold text-lg">Email</h3>
+                <p class="text-white text-sm">mhtma22@gmail.com</p>
+            </div>
+            <div class="md:row-span-1 border border-slate-700/80 p-4 rounded-full aspect-square object-cover">
+                <img class="w-16 h-16 object-cover" src="assets/logoGmail.png" alt="Gmail">
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-slate-900 bg-brand-dark/80 relative">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <!-- Left: Logo & copyright -->
+      <div class="flex flex-col items-center md:items-start space-y-2">
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-primary to-brand-secondary flex items-center justify-center shadow-lg">
+            <span class="text-white font-extrabold text-sm">DP</span>
+          </div>
+          <span class="font-bold text-lg tracking-wide text-white">DevProfile</span>
+        </div>
+        <p class="text-slate-500 text-xs">© 2026 Mathias Dev. Todos los derechos reservados.</p>
+      </div>
+
+      <!-- Right: Social Links -->
+      <div class="flex items-center space-x-6">
+        <a href="#" class="w-10 h-10 rounded-xl bg-brand-card/60 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-brand-primary hover:border-brand-primary/50 transition-colors duration-300" aria-label="GitHub">
+          <i data-lucide="github" class="w-5 h-5"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-xl bg-brand-card/60 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-brand-primary hover:border-brand-primary/50 transition-colors duration-300" aria-label="LinkedIn">
+          <i data-lucide="linkedin" class="w-5 h-5"></i>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-xl bg-brand-card/60 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-brand-primary hover:border-brand-primary/50 transition-colors duration-300" aria-label="Twitter">
+          <i data-lucide="twitter" class="w-5 h-5"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Mobile Menu Toggle logic
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const menuIcon = mobileMenuBtn.querySelector('i');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      const isExpanded = mobileMenu.classList.toggle('hidden');
+      
+      // Update hamburger icon
+      if (isExpanded) {
+        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+      } else {
+        mobileMenuBtn.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
+      }
+      lucide.createIcons();
+    });
+
+    // Close mobile menu when a link is clicked
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
+        lucide.createIcons();
+      });
+    });
+
+    // Header scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        navbar.classList.add('glassmorphism', 'shadow-lg', 'py-3');
+        navbar.classList.remove('py-5');
+      } else {
+        navbar.classList.remove('glassmorphism', 'shadow-lg', 'py-3');
+        navbar.classList.add('py-5');
+      }
+    });
+  </script>
+</body>
+</html>
