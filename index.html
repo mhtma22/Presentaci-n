@@ -3,482 +3,362 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dev Mathias</title>
-  <meta name="description" content="Sitio web de perfil profesional que muestra mis servicios, proyectos y habilidades como desarrollador web y diseñador UI/UX.">
-  
-  <!-- Google Fonts -->
+  <title>Mathias — Full Stack Developer</title>
+  <meta name="description" content="Sitio web de perfil profesional que muestra mis servicios, proyectos y habilidades como desarrollador web.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS v4 -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  
-  <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  
-  <!-- Tailwind CSS Custom Configuration -->
+
   <style type="text/tailwindcss">
     @theme {
-      --font-sans: 'Outfit', sans-serif;
-      --color-brand-dark: #090d16;
-      --color-brand-card: #131b2e;
-      --color-brand-primary: #06b6d4; /* Cyan */
-      --color-brand-secondary: #a855f7; /* Purple */
-      --color-brand-accent: #f43f5e; /* Rose */
-      --color-brand-muted: #64748b; /* Slate Muted */
-    }
-    
-    /* Custom utility classes */
-    .glassmorphism {
-      background: rgba(19, 27, 46, 0.75);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    
-    .text-gradient {
-      background: linear-gradient(135deg, var(--color-brand-primary) 0%, var(--color-brand-secondary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    
-    .bg-gradient-radial {
-      background: radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.15) 0%, rgba(168, 85, 247, 0.05) 50%, transparent 100%);
+      --font-mono-display: 'JetBrains Mono', monospace;
+      --font-body: 'Inter', sans-serif;
+      --color-paper: #FAFAF8;
+      --color-ink: #0A0A0A;
+      --color-flame: #FF5A1F;
+      --color-volt: #1E40FF;
+      --color-graphite: #6B6B6B;
+      --color-hair: #E4E1D8;
     }
 
-    .glow-effect:hover {
-      box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
-      border-color: rgba(6, 182, 212, 0.5);
-    }
     html, body {
+      background-color: var(--color-flame);
+    }
+
+    .frame {
+      border: 14px solid var(--color-flame);
+    }
+
+    @media (max-width: 768px) {
+      .frame { border-width: 8px; }
+    }
+
+    .nav-link {
+      position: relative;
+      font-family: var(--font-mono-display);
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: var(--color-flame);
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
       width: 100%;
+    }
+    .nav-link.active {
+      color: var(--color-flame);
+    }
+
+    .cursor-blink {
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card-hover:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 6px 6px 0px 0px var(--color-ink);
+    }
+
+    .tag {
+      font-family: var(--font-mono-display);
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono-display);
     }
   </style>
 </head>
-<body class="bg-brand-dark text-slate-100 font-sans antialiased selection:bg-brand-primary selection:text-brand-dark overflow-x-hidden w-full min-h-screen">
+<body class="font-body antialiased text-ink">
 
-  <!-- Background Glow Orbs -->
-  <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
-    <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-brand-primary/10 blur-[120px]"></div>
-    <div class="absolute top-[40%] right-[-10%] w-[60%] h-[60%] rounded-full bg-brand-secondary/8 blur-[150px]"></div>
-    <div class="absolute bottom-[-10%] left-[20%] w-[50%] h-[50%] rounded-full bg-brand-accent/5 blur-[120px]"></div>
+  <div class="frame bg-paper min-h-screen w-full">
+
+    <!-- HEADER -->
+    <header id="navbar" class="sticky top-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-hair">
+      <div class="max-w-6xl mx-auto px-6 md:px-10 flex justify-between items-center h-20">
+        <a href="#hero" class="font-mono-display font-extrabold text-lg tracking-tight text-ink">
+          mathias<span class="text-flame">.dev</span>
+        </a>
+
+        <nav class="hidden lg:flex items-center gap-10 text-sm uppercase tracking-wide">
+          <a href="#hero" class="nav-link active">Inicio</a>
+          <a href="#servicios" class="nav-link">Servicios</a>
+          <a href="#proyectos" class="nav-link">Proyectos</a>
+          <a href="#sobre-mi" class="nav-link">Sobre Mí</a>
+        </nav>
+
+        <a href="#contacto" class="hidden lg:inline-flex items-center border-2 border-ink px-5 py-2 font-mono-display text-sm font-bold uppercase tracking-wide hover:bg-ink hover:text-paper transition-colors duration-200">
+          Contacto
+        </a>
+
+        <button id="mobile-menu-btn" class="lg:hidden p-2" aria-label="Abrir menú">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden lg:hidden border-t border-hair bg-paper px-6 py-6 flex flex-col gap-5 font-mono-display uppercase text-sm">
+        <a href="#hero" class="mobile-nav-link">Inicio</a>
+        <a href="#servicios" class="mobile-nav-link">Servicios</a>
+        <a href="#proyectos" class="mobile-nav-link">Proyectos</a>
+        <a href="#sobre-mi" class="mobile-nav-link">Sobre Mí</a>
+        <a href="#contacto" class="mobile-nav-link border-2 border-ink text-center py-3 mt-2">Contacto</a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="hero" class="max-w-6xl mx-auto px-6 md:px-10 pt-24 pb-28 md:pt-36 md:pb-40">
+      <p class="section-eyebrow text-flame text-sm font-bold uppercase tracking-[0.2em] mb-6">
+        // disponible para nuevos proyectos
+      </p>
+      <h1 class="font-mono-display font-extrabold uppercase leading-[0.95] text-5xl sm:text-6xl md:text-8xl tracking-tight">
+        SOY<br>MATHIAS
+      </h1>
+      <p class="font-mono-display text-graphite text-base md:text-xl mt-6">
+        <span id="typed-role">Full Stack Developer.</span><span class="cursor-blink">|</span>
+      </p>
+      <p class="text-graphite max-w-xl mt-8 leading-relaxed text-base md:text-lg">
+        Desarrollo aplicaciones web con WordPress, Elementor y Laravel. Código limpio, soluciones funcionales y atención real al detalle.
+      </p>
+      <div class="flex flex-wrap gap-4 mt-10">
+        <a href="#proyectos" class="bg-ink text-paper font-mono-display font-bold uppercase text-sm px-7 py-4 hover:bg-flame transition-colors duration-200">
+          Ver Proyectos
+        </a>
+        <a href="#contacto" class="border-2 border-ink font-mono-display font-bold uppercase text-sm px-7 py-4 hover:border-flame hover:text-flame transition-colors duration-200">
+          Hablemos
+        </a>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-hair">
+      <div class="flex items-end justify-between mb-12 flex-wrap gap-4">
+        <div>
+          <p class="section-eyebrow text-flame text-sm font-bold uppercase tracking-[0.2em] mb-3">01 / Servicios</p>
+          <h2 class="font-mono-display font-extrabold uppercase text-3xl md:text-4xl">Lo que ofrezco</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-hair border border-hair">
+        <div class="card-hover bg-paper p-8 md:p-10">
+          <i data-lucide="layout" class="w-8 h-8 text-flame mb-6"></i>
+          <h3 class="font-mono-display font-bold uppercase text-xl mb-3">Desarrollo Frontend</h3>
+          <p class="text-graphite text-sm leading-relaxed">
+            Sitios web responsivos con HTML, CSS, Tailwind y JavaScript. Diseño limpio y buena experiencia de usuario.
+          </p>
+        </div>
+
+        <div class="card-hover bg-paper p-8 md:p-10">
+          <i data-lucide="zap" class="w-8 h-8 text-volt mb-6"></i>
+          <h3 class="font-mono-display font-bold uppercase text-xl mb-3">WordPress &amp; Elementor</h3>
+          <p class="text-graphite text-sm leading-relaxed">
+            Personalización de sitios WordPress, ajustes de CSS/JS, configuración de plugins y optimización móvil.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS -->
+    <section id="proyectos" class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-hair">
+      <p class="section-eyebrow text-flame text-sm font-bold uppercase tracking-[0.2em] mb-3">02 / Portafolio</p>
+      <h2 class="font-mono-display font-extrabold uppercase text-3xl md:text-4xl mb-12">Proyectos Recientes</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <div class="card-hover border-2 border-ink bg-paper flex flex-col">
+          <div class="aspect-video overflow-hidden border-b-2 border-ink">
+            <img src="assets/SneakerShop.jpg" alt="SneakerShop" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag border border-ink px-2 py-0.5 text-xs uppercase">Laravel</span>
+              <span class="tag border border-ink px-2 py-0.5 text-xs uppercase">Blade</span>
+              <span class="tag border border-ink px-2 py-0.5 text-xs uppercase">MySQL</span>
+            </div>
+            <h3 class="font-mono-display font-bold text-xl mb-3">SneakerShop</h3>
+            <p class="text-graphite text-sm leading-relaxed flex-1">
+              Tienda de zapatillas desarrollada con Laravel. Catálogo de productos, navegación por categorías y diseño responsivo.
+            </p>
+            <a href="https://github.com/mhtma22/SneakerShop" class="inline-flex items-center gap-2 font-mono-display text-sm font-bold uppercase mt-5 hover:text-flame transition-colors">
+              Ver repositorio <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="card-hover border-2 border-ink bg-paper flex flex-col">
+          <div class="aspect-video overflow-hidden border-b-2 border-ink">
+            <img src="assets/BellaCosta.jpg" alt="BellaCosta" class="w-full h-full object-cover">
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag border border-ink px-2 py-0.5 text-xs uppercase">WordPress</span>
+              <span class="tag border border-ink px-2 py-0.5 text-xs uppercase">Elementor</span>
+              <span class="tag border border-ink px-2 py-0.5 text-xs uppercase">Houzez</span>
+            </div>
+            <h3 class="font-mono-display font-bold text-xl mb-3">BellaCosta</h3>
+            <p class="text-graphite text-sm leading-relaxed flex-1">
+              Personalización de sitio inmobiliario en WordPress. Ajustes de CSS, JavaScript, SEO y optimización móvil.
+            </p>
+            <a href="https://bellacosta.es" class="inline-flex items-center gap-2 font-mono-display text-sm font-bold uppercase mt-5 hover:text-flame transition-colors">
+              Ver sitio en vivo <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SOBRE MI -->
+    <section id="sobre-mi" class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-hair">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+        <div class="lg:col-span-4">
+          <div class="border-2 border-ink aspect-square overflow-hidden">
+            <img src="assets/Yo.jpg" alt="Mathias" class="w-full h-full object-cover">
+          </div>
+        </div>
+
+        <div class="lg:col-span-8">
+          <p class="section-eyebrow text-flame text-sm font-bold uppercase tracking-[0.2em] mb-3">03 / Sobre mí</p>
+          <h2 class="font-mono-display font-extrabold uppercase text-3xl md:text-4xl mb-6">Quién soy</h2>
+
+          <div class="space-y-4 text-graphite leading-relaxed mb-8">
+            <p>Soy estudiante de Sistemas de Información con experiencia práctica en desarrollo web. He trabajado en proyectos reales con WordPress, Elementor y Laravel, enfocándome en soluciones funcionales y bien presentadas.</p>
+            <p>Me gusta entender lo que el cliente necesita y traducirlo en algo que funcione bien y se vea bien. Trabajo de forma independiente y aprendo rápido.</p>
+          </div>
+
+          <h4 class="font-mono-display font-bold uppercase text-sm mb-4">Habilidades</h4>
+          <div class="flex flex-wrap gap-3">
+            <span class="tag border border-ink px-3 py-1.5 text-xs uppercase">HTML5 / CSS3</span>
+            <span class="tag border border-ink px-3 py-1.5 text-xs uppercase">Tailwind CSS</span>
+            <span class="tag border border-ink px-3 py-1.5 text-xs uppercase">JavaScript</span>
+            <span class="tag border border-ink px-3 py-1.5 text-xs uppercase">WordPress</span>
+            <span class="tag border border-ink px-3 py-1.5 text-xs uppercase">Git &amp; GitHub</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="max-w-6xl mx-auto px-6 md:px-10 py-20 border-t border-hair">
+      <p class="section-eyebrow text-flame text-sm font-bold uppercase tracking-[0.2em] mb-3">04 / Contacto</p>
+      <h2 class="font-mono-display font-extrabold uppercase text-3xl md:text-4xl mb-4">Pongámonos en contacto</h2>
+      <p class="text-graphite max-w-md mb-12">¿Tienes una idea o un proyecto por realizar? Escríbeme y hablemos sobre cómo puedo ayudarte.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-px bg-hair border border-hair max-w-2xl">
+        <a href="https://wa.me/51936913673" target="_blank" rel="noopener noreferrer" class="card-hover bg-paper p-8 flex items-center gap-4">
+          <img class="w-10 h-10" src="assets/logoWs.webp" alt="WhatsApp">
+          <div>
+            <h3 class="font-mono-display font-bold uppercase text-sm">WhatsApp</h3>
+            <p class="text-graphite text-sm">+51 936913673</p>
+          </div>
+        </a>
+
+        <a href="mailto:mhtma.22@gmail.com" class="card-hover bg-paper p-8 flex items-center gap-4">
+          <img class="w-10 h-10" src="assets/logoGmail.png" alt="Gmail">
+          <div>
+            <h3 class="font-mono-display font-bold uppercase text-sm">Email</h3>
+            <p class="text-graphite text-sm">mhtma.22@gmail.com</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="max-w-6xl mx-auto px-6 md:px-10 py-10 border-t border-hair flex flex-col md:flex-row justify-between items-center gap-6">
+      <p class="font-mono-display text-xs text-graphite uppercase">© 2026 mathias.dev — Todos los derechos reservados</p>
+      <div class="flex items-center gap-4">
+        <a href="#" class="w-10 h-10 border border-ink flex items-center justify-center hover:bg-ink hover:text-paper transition-colors duration-200" aria-label="Facebook">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 71 72" fill="none"><path d="M46.4233 38.6403L47.7279 30.3588H39.6917V24.9759C39.6917 22.7114 40.8137 20.4987 44.4013 20.4987H48.1063V13.4465C45.9486 13.1028 43.7685 12.9168 41.5834 12.8901C34.9692 12.8901 30.651 16.8626 30.651 24.0442V30.3588H23.3193V38.6403H30.651V58.671H39.6917V38.6403H46.4233Z" fill="currentColor"/></svg>
+        </a>
+        <a href="#" class="w-10 h-10 border border-ink flex items-center justify-center hover:bg-ink hover:text-paper transition-colors duration-200" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 50 50">
+            <path d="M 16 3 C 8.83 3 3 8.83 3 16 L 3 34 C 3 41.17 8.83 47 16 47 L 34 47 C 41.17 47 47 41.17 47 34 L 47 16 C 47 8.83 41.17 3 34 3 L 16 3 z M 37 11 C 38.1 11 39 11.9 39 13 C 39 14.1 38.1 15 37 15 C 35.9 15 35 14.1 35 13 C 35 11.9 35.9 11 37 11 z M 25 14 C 31.07 14 36 18.93 36 25 C 36 31.07 31.07 36 25 36 C 18.93 36 14 31.07 14 25 C 14 18.93 18.93 14 25 14 z M 25 16 C 20.04 16 16 20.04 16 25 C 16 29.96 20.04 34 25 34 C 29.96 34 34 29.96 34 25 C 34 20.04 29.96 16 25 16 z"></path>
+          </svg>
+        </a>
+        <a href="#" class="w-10 h-10 border border-ink flex items-center justify-center hover:bg-ink hover:text-paper transition-colors duration-200" aria-label="LinkedIn">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 50 50">
+            <path d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z"></path>
+          </svg>
+        </a>
+        <a href="https://github.com/mhtma22" class="w-10 h-10 border border-ink flex items-center justify-center hover:bg-ink hover:text-paper transition-colors duration-200" aria-label="GitHub">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 50 50">
+            <path d="M17.791,46.836C18.502,46.53,19,45.823,19,45v-5.4c0-0.197,0.016-0.402,0.041-0.61C19.027,38.994,19.014,38.997,19,39 c0,0-3,0-3.6,0c-1.5,0-2.8-0.6-3.4-1.8c-0.7-1.3-1-3.5-2.8-4.7C8.9,32.3,9.1,32,9.7,32c0.6,0.1,1.9,0.9,2.7,2c0.9,1.1,1.8,2,3.4,2 c2.487,0,3.82-0.125,4.622-0.555C21.356,34.056,22.649,33,24,33v-0.025c-5.668-0.182-9.289-2.066-10.975-4.975 c-3.665,0.042-6.856,0.405-8.677,0.707c-0.058-0.327-0.108-0.656-0.151-0.987c1.797-0.296,4.843-0.647,8.345-0.714 c-0.112-0.276-0.209-0.559-0.291-0.849c-3.511-0.178-6.541-0.039-8.187,0.097c-0.02-0.332-0.047-0.663-0.051-0.999 c1.649-0.135,4.597-0.27,8.018-0.111c-0.079-0.5-0.13-1.011-0.13-1.543c0-1.7,0.6-3.5,1.7-5c-0.5-1.7-1.2-5.3,0.2-6.6 c2.7,0,4.6,1.3,5.5,2.1C21,13.4,22.9,13,25,13s4,0.4,5.6,1.1c0.9-0.8,2.8-2.1,5.5-2.1c1.5,1.4,0.7,5,0.2,6.6c1.1,1.5,1.7,3.2,1.6,5 c0,0.484-0.045,0.951-0.11,1.409c3.499-0.172,6.527-0.034,8.204,0.102c-0.002,0.337-0.033,0.666-0.051,0.999 c-1.671-0.138-4.775-0.28-8.359-0.089c-0.089,0.336-0.197,0.663-0.325,0.98c3.546,0.046,6.665,0.389,8.548,0.689 c-0.043,0.332-0.093,0.661-0.151,0.987c-1.912-0.306-5.171-0.664-8.879-0.682C35.112,30.873,31.557,32.75,26,32.969V33 c2.6,0,5,3.9,5,6.6V45c0,0.823,0.498,1.53,1.209,1.836C41.37,43.804,48,35.164,48,25C48,12.318,37.683,2,25,2S2,12.318,2,25 C2,35.164,8.63,43.804,17.791,46.836z"></path>
+          </svg>
+        </a>
+      </div>
+    </footer>
+
   </div>
 
-  <!-- HEADER / NAVBAR -->
-  <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-5">
-    <div class="container mx-auto px-6 flex justify-between items-center">
-      <!-- Logo -->
-      <a href="#hero" class="flex items-center space-x-2 group">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-primary to-brand-secondary flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-          <span class="text-white font-extrabold text-xl">DP</span>
-        </div>
-        <span class="font-bold text-xl tracking-wide bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent group-hover:text-brand-primary transition-colors duration-300">DevProfile</span>
-      </a>
-
-      <!-- Desktop Navigation -->
-      <nav class="hidden xl:flex items-center space-x-8 glassmorphism px-8 py-3 rounded-full">
-        <a href="#hero" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Inicio</a>
-        <a href="#servicios" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Servicios</a>
-        <a href="#proyectos" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Proyectos</a>
-        <a href="#sobre-mi" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Sobre Mí</a>
-        <a href="#contacto" class="text-sm font-medium text-slate-300 hover:text-brand-primary transition-colors duration-300">Contacto</a>
-      </nav>
-
-      <!-- CTA Button (Desktop) -->
-      <div class="hidden xl:block">  
-        <a href="#contacto" class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium rounded-full group bg-gradient-to-br from-brand-primary to-brand-secondary group-hover:from-brand-primary group-hover:to-brand-secondary text-white focus:ring-4 focus:outline-none focus:ring-brand-primary/30">
-          <span class="relative px-5 py-2 transition-all ease-in duration-75 bg-brand-dark rounded-full group-hover:bg-opacity-0">
-            Contáctame
-          </span>
-        </a>
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="xl:hidden text-slate-300 hover:text-white focus:outline-none p-2 rounded-lg hover:bg-slate-800/50 transition-colors" aria-label="Abrir menú">
-        <i data-lucide="menu" class="w-6 h-6"></i>
-      </button>
-    </div>
-
-    <!-- Mobile Navigation Drawer -->
-    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full glassmorphism border-t border-slate-800/80 py-6 px-6 flex flex-col space-y-4 shadow-xl">
-      <a href="#hero" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Inicio</a>
-      <a href="#servicios" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Servicios</a>
-      <a href="#proyectos" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Proyectos</a>
-      <a href="#sobre-mi" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Sobre Mí</a>
-      <a href="#contacto" class="mobile-nav-link text-lg font-medium text-slate-300 hover:text-brand-primary py-2 transition-colors duration-300">Contacto</a>
-      <a href="#contacto" class="mobile-nav-link w-full py-3 text-center bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold rounded-xl shadow-lg transition-transform active:scale-95 duration-200">Hablemos</a>
-    </div>
-  </header>
-
-  <!-- HERO SECTION -->
-  <section id="hero" class="min-h-screen flex items-center pt-24 pb-16 relative">
-    <div class="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      <!-- Left Content -->
-      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/20 text-brand-primary text-xs font-semibold uppercase tracking-wider">
-          <span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse"></span>
-          <span>Disponible para nuevos proyectos</span>
-        </div>
-        <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight leading-none text-white">
-          Hola, soy <span class="text-gradient">Mathias</span> <br>
-          <span class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-300">Desarrolador FullStack</span>
-        </h1>
-        <p class="text-base md:text-lg text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-          Me especializo en diseñar y desarrollar aplicaciones web modernas, rápidas y visualmente impactantes. Combino código limpio con diseño interactivo para dar vida a tus ideas.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-          <a href="#proyectos" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-primary/95 hover:to-brand-secondary/95 text-white font-semibold rounded-xl shadow-lg hover:shadow-brand-primary/20 transform hover:-translate-y-0.5 transition-all duration-300 text-center">
-            Ver Proyectos
-          </a>
-          <a href="#contacto" class="w-full sm:w-auto px-8 py-4 bg-brand-card/80 hover:bg-brand-card text-slate-200 font-semibold rounded-xl border border-slate-700/80 hover:border-slate-600 transition-all duration-300 text-center">
-            Contáctame
-          </a>
-        </div>
-      </div>
-      <!-- Right Image / Illustration -->
-      <div class="lg:col-span-5 flex justify-center relative">
-        <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary/20 to-brand-secondary/20 rounded-full blur-[80px] w-72 h-72 mx-auto -z-10"></div>
-        <div class="relative w-full max-w-[420px] aspect-square rounded-3xl overflow-hidden shadow-2xl border border-slate-800">
-          <img src="assets/hero.png" alt="Ilustración Tech" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700">
-          <div class="absolute inset-0 bg-gradient-to-t from-brand-dark/40 to-transparent"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICIOS SECTION -->
-  <section id="servicios" class="py-24 border-t border-slate-900 bg-brand-dark/40 relative">
-    <div class="container mx-auto px-6">
-      <div class="max-w-2xl mx-auto text-center mb-16 space-y-3">
-        <h2 class="text-xs font-semibold text-brand-primary uppercase tracking-wider">Lo que ofrezco</h2>
-        <p class="text-3xl md:text-4xl font-bold text-white">Mis Servicios Especializados</p>
-        <div class="w-16 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto rounded-full"></div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-9xl mx-auto">
-        <!-- Servicio 1 -->
-        <div class="bg-brand-card/50 border border-slate-800/80 rounded-2xl p-8 hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between">
-          <div class="space-y-6">
-            <div class="w-14 h-14 rounded-2xl bg-brand-primary/10 flex items-center justify-center text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition-colors duration-300">
-              <i data-lucide="layout" class="w-7 h-7"></i>
-            </div>
-            <h3 class="text-xl font-bold text-white">Desarrollo Frontend</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">
-                Creación de sitios web responsivos usando HTML, CSS, Tailwind y JavaScript. Enfocado en diseño limpio y buena experiencia de usuario.
-            </p>
-          </div>
-          <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center text-brand-primary text-sm font-semibold group-hover:text-white transition-colors">
-            <span>Saber más</span>
-            <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </div>
-
-
-        <!-- Servicio 2 -->
-        <div class="bg-brand-card/50 border border-slate-800/80 rounded-2xl p-8 hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between">
-          <div class="space-y-6">
-            <div class="w-14 h-14 rounded-2xl bg-brand-accent/10 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors duration-300">
-              <i data-lucide="zap" class="w-7 h-7"></i>
-            </div>
-            <h3 class="text-xl font-bold text-white"> WordPress & Elementor</h3>
-            <p class="text-slate-400 text-sm leading-relaxed">
-                Personalización de sitios WordPress con Elementor, ajustes de CSS y JavaScript, configuración de plugins y optimización para móvil.
-            </p>
-          </div>
-          <div class="mt-8 pt-6 border-t border-slate-800/60 flex items-center text-brand-accent text-sm font-semibold group-hover:text-white transition-colors">
-            <span>Saber más</span>
-            <i data-lucide="arrow-right" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROYECTOS SECTION -->
-  <section id="proyectos" class="py-24 border-t border-slate-900 relative">
-    <div class="container mx-auto px-6">
-      <div class="max-w-2xl mx-auto text-center mb-16 space-y-3">
-        <h2 class="text-xs font-semibold text-brand-primary uppercase tracking-wider font-sans">Mi Portafolio</h2>
-        <p class="text-3xl md:text-4xl font-bold text-white">Proyectos Recientes</p>
-        <div class="w-16 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto rounded-full"></div>
-      </div>
-
-      <!-- Projects Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-        
-        <!-- Proyecto 1 -->
-        <div class="group bg-brand-card/40 border border-slate-800/60 rounded-2xl overflow-hidden hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between">
-            <div>
-              <!-- Project Image styled placeholder -->
-              <div class="w-full bg-gradient-to-br from-indigo-950 to-purple-900 flex flex-col items-center justify-center relative overflow-hidden">
-                <img src="assets/SneakerShop.jpg" alt="SneakerShop">                
-              </div>
-              
-              <!-- Project Content -->
-              <div class="p-6 space-y-4">
-                <div class="flex flex-wrap gap-2">
-                  <span class="px-2.5 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary text-xs font-medium">Laravel</span>
-                  <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">Blade</span>
-                  <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">MySQL</span>
-                </div>
-                <h3 class="text-xl font-bold text-white group-hover:text-brand-primary transition-colors">SneakerShop</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                  Tienda de zapatillas desarrollada con Laravel. Incluye catálogo de productos, navegación por categorías y diseño responsivo.
-                </p>
-              </div>
-            </div>
-            
-            <div class="p-6 pt-0 flex justify-between items-center">
-              <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Ver Repositorio">
-                <i data-lucide="github" class="w-5 h-5"></i>
-              </a>
-              <a href="https://github.com/mhtma22/SneakerShop" class="flex items-center text-brand-primary text-sm font-semibold hover:underline" aria-label="Ver Demo">
-                <span>Demo en Vivo</span>
-                <i data-lucide="external-link" class="w-4 h-4 ml-1"></i>
-              </a>
-            </div>
-          </div>
-
-
-        <!-- Proyecto 2 -->
-        <div class="group bg-brand-card/40 border border-slate-800/60 rounded-2xl overflow-hidden hover:border-slate-700/80 transition-all duration-300 flex flex-col justify-between">
-          <div>
-            <!-- Project Image styled placeholder -->
-            <div class="w-full bg-gradient-to-br from-slate-1000 to-cyan-900 flex flex-col items-center justify-center relative overflow-hidden">
-                <img src="assets/BellaCosta.jpg" class="w-full h-full object-cover" alt="bellacosta">
-            </div>
-            
-            <!-- Project Content -->
-            <div class="p-6 space-y-4">
-              <div class="flex flex-wrap gap-2">
-                <span class="px-2.5 py-0.5 rounded-full bg-brand-secondary/10 text-brand-secondary text-xs font-medium">WordPress</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">Elementor</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 text-xs font-medium">Houzez</span>
-              </div>
-              <h3 class="text-xl font-bold text-white group-hover:text-brand-secondary transition-colors">BellaCosta</h3>
-              <p class="text-slate-400 text-sm leading-relaxed">
-                Personalización de sitio inmobiliario en WordPress. Ajustes de CSS, JavaScript, SEO y optimización móvil..
-              </p>
-            </div>
-          </div>
-          
-          <div class="p-6 pt-0 flex justify-between items-center">
-            <a href="#" class="text-slate-400 hover:text-white transition-colors" aria-label="Ver Repositorio">
-              <i data-lucide="github" class="w-5 h-5"></i>
-            </a>
-            <a href="https://bellacosta.es" class="flex items-center text-brand-secondary text-sm font-semibold hover:underline" aria-label="Ver Demo">
-              <span>Demo en Vivo</span>
-              <i data-lucide="external-link" class="w-4 h-4 ml-1"></i>
-            </a>
-          </div>
-        </div>
-           
-      </div>
-    </div>
-  </section>
-
-  <!-- SOBRE MÍ SECTION -->
-  <section id="sobre-mi" class="py-24 border-t border-slate-900 bg-brand-dark/40 relative w-full">
-    <div class="container mx-auto px-6 max-w-none">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-        <!-- Left Column: Avatar Image -->
-        <div class="lg:col-span-5 flex justify-center relative order-last lg:order-first">
-          <div class="absolute inset-0 bg-gradient-to-tr from-brand-secondary/20 to-brand-accent/20 rounded-full blur-[80px] w-72 h-72 mx-auto -z-10"></div>
-          <!-- Ring style border around avatar -->
-          <div class="relative p-2 rounded-full bg-gradient-to-br from-brand-primary via-slate-800 to-brand-secondary shadow-2xl">
-            <div class="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden bg-brand-dark">
-              <img src="assets/Yo.jpg" alt="Avatar Profesional" class="w-full h-full object-cover">
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column: Text & Skills -->
-        <div class="lg:col-span-7 space-y-6">
-          <div class="space-y-3">
-            <h2 class="text-xs font-semibold text-brand-primary uppercase tracking-wider">Quién soy</h2>
-            <p class="text-3xl md:text-4xl font-bold text-white">Un Poco Sobre Mí</p>
-            <div class="w-16 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full"></div>
-          </div>
-
-          <div class="space-y-4 text-slate-400 text-sm md:text-base leading-relaxed">
-            <p>
-                Soy estudiante de Sistemas de Información con experiencia práctica en desarrollo web. He trabajado en proyectos reales con WordPress, Elementor y Laravel, enfocándome en soluciones funcionales y bien presentadas.
-            </p>
-            <p>
-                Me gusta entender lo que el cliente necesita y traducirlo en algo que funcione bien y se vea bien. Trabajo de forma independiente y aprendo rápido.
-            </p>
-          </div>
-
-          <!-- Skills Grid -->
-          <div class="space-y-4 pt-4">
-            <h4 class="text-white font-bold text-lg">Habilidades & Tecnologías</h4>
-            <div class="flex flex-wrap gap-3">
-              <!-- Skill Badge -->
-              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-primary hover:text-white transition-all duration-300">
-                <span class="w-2 h-2 rounded-full bg-brand-primary mr-2"></span>HTML5 / CSS3
-              </span>
-              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-primary hover:text-white transition-all duration-300">
-                <span class="w-2 h-2 rounded-full bg-brand-primary mr-2"></span>Tailwind CSS
-              </span>
-              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-primary hover:text-white transition-all duration-300">
-                <span class="w-2 h-2 rounded-full bg-brand-primary mr-2"></span>JavaScript
-              </span>
-
-              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-secondary hover:text-white transition-all duration-300">
-                <span class="w-2 h-2 rounded-full bg-brand-secondary mr-2"></span>Wordpress
-              </span>
-              <span class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-card/80 border border-slate-800/80 text-slate-300 text-sm font-medium hover:border-brand-accent hover:text-white transition-all duration-300">
-                <span class="w-2 h-2 rounded-full bg-brand-accent mr-2"></span>Git & GitHub
-              </span>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACTO SECTION -->
-  <section id="contacto" class="bg-gradient-radial border-t border-slate-900 relative pt-18 pb-18">
-    <div class="container mx-auto px-6 items-center w-full">
-      <div class="max-w-2xl mx-auto text-center mb-16 space-y-3">
-        <h2 class="text-xs font-semibold text-brand-primary uppercase tracking-wider">Contacto</h2>
-        <p class="text-3xl md:text-4xl font-bold text-white">Pongámonos en Contacto</p>
-        <p class="text-slate-400 text-sm max-w-md mx-auto">¿Tienes una idea en mente o un proyecto por realizar? Escríbeme y hablemos sobre cómo puedo ayudarte.</p>
-        <div class="w-16 h-1 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto rounded-full"></div>
-      </div>
-
-      <!--  Contacto Info (Left) -->
-      <div class="flex flex-col lg:flex-row gap-8 justify-center items-center w-full px-4">
-        <!-- WhatsApp Group -->
-        <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto justify-center">
-          <div class="border border-slate-700/80 p-4 rounded-full aspect-square object-cover hover:bg-[#091703] transition duration-300 flex items-center justify-center shrink-0">
-            <a href="https://wa.me/51936913673" target="_blank" rel="noopener noreferrer" class="group block">  
-              <img class="w-16 h-16 object-cover group-hover:brightness-125 transition duration-300" src="assets/logoWs.webp" alt="Whatsapp">
-            </a>
-          </div>
-          <div class="border border-slate-700/80 p-4 rounded-full px-10 text-center sm:text-left min-w-[240px]">
-            <h3 class="text-white font-bold text-lg">Whatsapp</h3>
-            <p class="text-white text-sm">+51 936913673</p>
-          </div>
-        </div>
-
-        <!-- Gmail Group -->
-        <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto justify-center">
-          <div class="border border-slate-700/80 p-4 rounded-full aspect-square object-cover hover:bg-white/10 transition duration-300 flex items-center justify-center shrink-0">
-            <a href="mailto:mhtma.22@gmail.com" class="group block">  
-              <img class="w-16 h-16 object-cover group-hover:brightness-125 transition duration-300" src="assets/logoGmail.png" alt="Gmail">
-            </a>
-          </div>
-          <div class="border border-slate-700/80 p-4 rounded-full px-10 text-center sm:text-left min-w-[240px]">
-            <h3 class="text-white font-bold text-lg">Email</h3>
-            <p class="text-white text-sm">mhtma.22@gmail.com</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="py-12 border-t border-slate-900 bg-brand-dark/80 relative">
-    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-      <!-- Left: Logo & copyright -->
-      <div class="flex flex-col items-center md:items-start space-y-2">
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-primary to-brand-secondary flex items-center justify-center shadow-lg">
-            <span class="text-white font-extrabold text-sm">DP</span>
-          </div>
-          <span class="font-bold text-lg tracking-wide text-white">DevProfile</span>
-        </div>
-        <p class="text-slate-500 text-xs">© 2026 Mathias Dev. Todos los derechos reservados.</p>
-      </div>
-
-      <!-- Right: Social Links -->
-      <div class="flex items-center space-x-6">
-
-        <a href="javascript:;"
-        class="w-10 h-10 rounded-xl bg-brand-card/60 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-brand-primary hover:border-brand-primary/50 transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 71 72"
-        fill="none">
-        <path
-          d="M46.4233 38.6403L47.7279 30.3588H39.6917V24.9759C39.6917 22.7114 40.8137 20.4987 44.4013 20.4987H48.1063V13.4465C45.9486 13.1028 43.7685 12.9168 41.5834 12.8901C34.9692 12.8901 30.651 16.8626 30.651 24.0442V30.3588H23.3193V38.6403H30.651V58.671H39.6917V38.6403H46.4233Z"
-          fill="currentColor" />
-        </svg>
-        </a>
-        
-        <a href="javascript:;"
-        class="w-10 h-10 rounded-xl bg-brand-card/60 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-brand-primary hover:border-brand-primary/50 transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 71 72"
-        fill="none">
-        <path
-          d="M12.5068 56.8405L15.7915 44.6381C13.1425 39.8847 12.3009 34.3378 13.4211 29.0154C14.5413 23.693 17.5482 18.952 21.89 15.6624C26.2319 12.3729 31.6173 10.7554 37.0583 11.1068C42.4992 11.4582 47.6306 13.755 51.5108 17.5756C55.3911 21.3962 57.7599 26.4844 58.1826 31.9065C58.6053 37.3286 57.0535 42.7208 53.812 47.0938C50.5705 51.4668 45.8568 54.5271 40.5357 55.7133C35.2146 56.8994 29.6432 56.1318 24.8438 53.5513L12.5068 56.8405ZM25.4386 48.985L26.2016 49.4365C29.6779 51.4918 33.7382 52.3423 37.7498 51.8555C41.7613 51.3687 45.4987 49.5719 48.3796 46.7452C51.2605 43.9185 53.123 40.2206 53.6769 36.2279C54.2308 32.2351 53.445 28.1717 51.4419 24.6709C49.4388 21.1701 46.331 18.4285 42.6027 16.8734C38.8745 15.3184 34.7352 15.0372 30.8299 16.0736C26.9247 17.11 23.4729 19.4059 21.0124 22.6035C18.5519 25.801 17.2209 29.7206 17.2269 33.7514C17.2237 37.0937 18.1503 40.3712 19.9038 43.2192L20.3823 44.0061L18.546 50.8167L25.4386 48.985Z"
-          fill="currentColor" />
-        <path fill-rule="evenodd" clip-rule="evenodd"
-          d="M43.9566 36.8847C43.5093 36.5249 42.9856 36.2716 42.4254 36.1442C41.8651 36.0168 41.2831 36.0186 40.7236 36.1495C39.8831 36.4977 39.3399 37.8134 38.7968 38.4713C38.6823 38.629 38.514 38.7396 38.3235 38.7823C38.133 38.8251 37.9335 38.797 37.7623 38.7034C34.6849 37.5012 32.1055 35.2965 30.4429 32.4475C30.3011 32.2697 30.2339 32.044 30.2557 31.8178C30.2774 31.5916 30.3862 31.3827 30.5593 31.235C31.165 30.6368 31.6098 29.8959 31.8524 29.0809C31.9063 28.1818 31.6998 27.2863 31.2576 26.5011C30.9157 25.4002 30.265 24.42 29.3825 23.6762C28.9273 23.472 28.4225 23.4036 27.9292 23.4791C27.4359 23.5546 26.975 23.7709 26.6021 24.1019C25.9548 24.6589 25.4411 25.3537 25.0987 26.135C24.7562 26.9163 24.5939 27.7643 24.6236 28.6165C24.6256 29.0951 24.6864 29.5716 24.8046 30.0354C25.1049 31.1497 25.5667 32.2144 26.1754 33.1956C26.6145 33.9473 27.0937 34.6749 27.6108 35.3755C29.2914 37.6767 31.4038 39.6305 33.831 41.1284C35.049 41.8897 36.3507 42.5086 37.7105 42.973C39.1231 43.6117 40.6827 43.8568 42.2237 43.6824C43.1018 43.5499 43.9337 43.2041 44.6462 42.6755C45.3588 42.1469 45.9302 41.4518 46.3102 40.6512C46.5334 40.1675 46.6012 39.6269 46.5042 39.1033C46.2714 38.0327 44.836 37.4007 43.9566 36.8847Z"
-          fill="currentColor" />
-        </svg>
-        </a>
-
-        <a href="javascript:;"
-        class="w-10 h-10 rounded-xl bg-brand-card/60 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-brand-primary hover:border-brand-primary/50 transition-colors duration-300">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 71 72"
-        fill="none">
-        <path
-          d="M27.3762 35.7808C27.3762 31.1786 31.1083 27.4468 35.7132 27.4468C40.3182 27.4468 44.0522 31.1786 44.0522 35.7808C44.0522 40.383 40.3182 44.1148 35.7132 44.1148C31.1083 44.1148 27.3762 40.383 27.3762 35.7808ZM22.8683 35.7808C22.8683 42.8708 28.619 48.618 35.7132 48.618C42.8075 48.618 48.5581 42.8708 48.5581 35.7808C48.5581 28.6908 42.8075 22.9436 35.7132 22.9436C28.619 22.9436 22.8683 28.6908 22.8683 35.7808ZM46.0648 22.4346C46.0646 23.0279 46.2404 23.608 46.5701 24.1015C46.8997 24.595 47.3684 24.9797 47.9168 25.2069C48.4652 25.4342 49.0688 25.4939 49.6511 25.3784C50.2334 25.2628 50.7684 24.9773 51.1884 24.5579C51.6084 24.1385 51.8945 23.6041 52.0105 23.0222C52.1266 22.4403 52.0674 21.8371 51.8404 21.2888C51.6134 20.7406 51.2289 20.2719 50.7354 19.942C50.2418 19.6122 49.6615 19.436 49.0679 19.4358H49.0667C48.2708 19.4361 47.5077 19.7522 46.9449 20.3144C46.3821 20.8767 46.0655 21.6392 46.0648 22.4346ZM25.6072 56.1302C23.1683 56.0192 21.8427 55.6132 20.9618 55.2702C19.7939 54.8158 18.9606 54.2746 18.0845 53.4002C17.2083 52.5258 16.666 51.6938 16.2133 50.5266C15.8699 49.6466 15.4637 48.3214 15.3528 45.884C15.2316 43.2488 15.2073 42.4572 15.2073 35.781C15.2073 29.1048 15.2336 28.3154 15.3528 25.678C15.4639 23.2406 15.8731 21.918 16.2133 21.0354C16.668 19.8682 17.2095 19.0354 18.0845 18.1598C18.9594 17.2842 19.7919 16.7422 20.9618 16.2898C21.8423 15.9466 23.1683 15.5406 25.6072 15.4298C28.244 15.3086 29.036 15.2844 35.7132 15.2844C42.3904 15.2844 43.1833 15.3106 45.8223 15.4298C48.2612 15.5408 49.5846 15.9498 50.4677 16.2898C51.6356 16.7422 52.4689 17.2854 53.345 18.1598C54.2211 19.0342 54.7615 19.8682 55.2161 21.0354C55.5595 21.9154 55.9658 23.2406 56.0767 25.678C56.1979 28.3154 56.2221 29.1048 56.2221 35.781C56.2221 42.4572 56.1979 43.2466 56.0767 45.884C55.9656 48.3214 55.5573 49.6462 55.2161 50.5266C54.7615 51.6938 54.2199 52.5266 53.345 53.4002C52.4701 54.2738 51.6356 54.8158 50.4677 55.2702C49.5872 55.6134 48.2612 56.0194 45.8223 56.1302C43.1855 56.2514 42.3934 56.2756 35.7132 56.2756C29.033 56.2756 28.2432 56.2514 25.6072 56.1302ZM25.4001 10.9322C22.7371 11.0534 20.9174 11.4754 19.3282 12.0934C17.6824 12.7316 16.2892 13.5878 14.897 14.977C13.5047 16.3662 12.6502 17.7608 12.0116 19.4056C11.3933 20.9948 10.971 22.8124 10.8497 25.4738C10.7265 28.1394 10.6982 28.9916 10.6982 35.7808C10.6982 42.57 10.7265 43.4222 10.8497 46.0878C10.971 48.7494 11.3933 50.5668 12.0116 52.156C12.6502 53.7998 13.5049 55.196 14.897 56.5846C16.289 57.9732 17.6824 58.8282 19.3282 59.4682C20.9204 60.0862 22.7371 60.5082 25.4001 60.6294C28.0687 60.7506 28.92 60.7808 35.7132 60.7808C42.5065 60.7808 43.3592 60.7526 46.0264 60.6294C48.6896 60.5082 50.5081 60.0862 52.0983 59.4682C53.7431 58.8282 55.1373 57.9738 56.5295 56.5846C57.9218 55.1954 58.7745 53.7998 59.4149 52.156C60.0332 50.5668 60.4575 48.7492 60.5768 46.0878C60.698 43.4202 60.7262 42.57 60.7262 35.7808C60.7262 28.9916 60.698 28.1394 60.5768 25.4738C60.4555 22.8122 60.0332 20.9938 59.4149 19.4056C58.7745 17.7618 57.9196 16.3684 56.5295 14.977C55.1395 13.5856 53.7431 12.7316 52.1003 12.0934C50.5081 11.4754 48.6894 11.0514 46.0284 10.9322C43.3612 10.811 42.5085 10.7808 35.7152 10.7808C28.922 10.7808 28.0687 10.809 25.4001 10.9322Z"
-          fill="currentColor" />
-        </svg>
-        </a>
-
-        <a href="#" class="w-10 h-10 rounded-xl bg-brand-card/60 border border-slate-800/80 flex items-center justify-center text-slate-400 hover:text-brand-primary hover:border-brand-primary/50 transition-colors duration-300" aria-label="LinkedIn">
-          <i data-lucide="linkedin" class="w-5 h-5"></i>
-        </a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- JAVASCRIPT LOGIC -->
   <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
 
-    // Mobile Menu Toggle logic
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-    const menuIcon = mobileMenuBtn.querySelector('i');
 
     mobileMenuBtn.addEventListener('click', () => {
-      const isExpanded = mobileMenu.classList.toggle('hidden');
-      
-      // Update hamburger icon
-      if (isExpanded) {
-        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
-      } else {
-        mobileMenuBtn.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
-      }
-      lucide.createIcons();
+      mobileMenu.classList.toggle('hidden');
     });
 
-    // Close mobile menu when a link is clicked
     mobileNavLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-        mobileMenuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
-        lucide.createIcons();
-      });
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
     });
 
-    // Header scroll effect
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 20) {
-        navbar.classList.add('glassmorphism', 'shadow-lg', 'py-3');
-        navbar.classList.remove('py-5');
+    // Typing effect for role text
+    const roles = ['Full Stack Developer.', 'WordPress & Elementor.', 'Laravel Developer.'];
+    const typedEl = document.getElementById('typed-role');
+    let roleIndex = 0, charIndex = 0, deleting = false;
+
+    function typeLoop() {
+      const current = roles[roleIndex];
+      if (!deleting) {
+        charIndex++;
+        typedEl.textContent = current.slice(0, charIndex);
+        if (charIndex === current.length) {
+          deleting = true;
+          setTimeout(typeLoop, 1800);
+          return;
+        }
       } else {
-        navbar.classList.remove('glassmorphism', 'shadow-lg', 'py-3');
-        navbar.classList.add('py-5');
+        charIndex--;
+        typedEl.textContent = current.slice(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+        }
       }
+      setTimeout(typeLoop, deleting ? 40 : 80);
+    }
+    typedEl.textContent = '';
+    setTimeout(typeLoop, 600);
+
+    // Active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 100) current = sec.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
     });
   </script>
 </body>
