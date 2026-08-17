@@ -1,4 +1,11 @@
     @import "tailwindcss";
+    @import url("https://unpkg.com/lucide@latest");
+    @import url("https://unpkg.com/lucide@latest/dist/lucide.css");
+    @import url("https://unpkg.com/lucide@latest/dist/lucide-icons.css");
+    @import url("https://tailwindcss.com/docs");
+    @import url("https://tailwindcss.com/docs/components");
+    @import url("https://tailwindcss.com/docs/utilities");
+    @import url("https://tailwindcss.com/docs/custom-variants");
     /* Dark mode variant */
     @custom-variant dark (&:where(.dark, .dark *));
 
