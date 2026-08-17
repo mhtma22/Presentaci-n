@@ -14,6 +14,80 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <style type="text/tailwindcss">
+    /* Dark mode variant */
+    @custom-variant dark (&:where(.dark, .dark *));
+
+    /* Theme colors */
+    @theme {
+      --font-mono-display: 'JetBrains Mono', monospace;
+      --font-body: 'Inter', sans-serif;
+      --color-paper: #FAFAF8;
+      --color-ink: #0A0A0A;
+      --color-flame: #FF5A1F;
+      --color-volt: #1E40FF;
+      --color-graphite: #6B6B6B;
+      --color-hair: #E4E1D8;
+    }
+
+    html, body {
+      background-color: var(--color-flame);
+    }
+
+    .frame {
+      border: 14px solid var(--color-flame);
+    }
+
+    @media (max-width: 768px) {
+      .frame { border-width: 8px; }
+    }
+
+    .nav-link {
+      position: relative;
+      font-family: var(--font-mono-display);
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: var(--color-flame);
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+    .nav-link.active {
+      color: var(--color-flame);
+    }
+
+    .cursor-blink {
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card-hover:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 6px 6px 0px 0px var(--color-ink);
+    }
+
+    .tag {
+      font-family: var(--font-mono-display);
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono-display);
+    }
+
+  </style>
 </head>
 <body class="font-body antialiased text-ink">
 
